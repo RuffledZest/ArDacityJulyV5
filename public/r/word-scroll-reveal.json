@@ -1,0 +1,17 @@
+{
+  "name": "word-scroll-reveal",
+  "type": "registry:component",
+  "dependencies": [
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "type": "registry:component",
+      "content": "\"use client\";\n\nimport {\n    useScroll,\n    useTransform,\n} from \"framer-motion\";\nimport { useEffect, useRef, useState } from \"react\";\nimport { twMerge } from \"tailwind-merge\";\n\nconst text = `When I Started Building ArDacity, I wanted to name it 'MuchBetterIdea just to piss off Ankush who made BetterIDEa, Lmao   `;\nconst words = text.split(\" \");\n\nexport default function WordScrollReveal() {\n    const scrollTarget = useRef<HTMLDivElement>(null);\n    const { scrollYProgress } = useScroll({\n        target: scrollTarget,\n        offset: [\"start end\", \"end end\"],\n    });\n    const [currentWord, setCurrentWord] = useState(0);\n    const wordIndex = useTransform(scrollYProgress, [0, 1], [0, words.length]);\n\n    useEffect(() => {\n        wordIndex.on(\"change\", (latest) => {\n            setCurrentWord(latest);\n        });\n    }, [wordIndex]);\n\n    return (\n        <section className=\"py-28 lg:py-40 bg-gray-50\">\n            <div className=\"container max-w-6xl mx-auto p-[1rem] sm:p-[0rem]\">\n                <div className=\"sticky top-28 md:top-32\">\n                    <div className=\"text-3xl md:text-6xl lg:text-7xl text-center font-medium mt-10 text-gray-900\">\n                        <span>Fun Fact About ArDacity&nbsp;</span>\n                        <span className=\"text-gray-300\">\n                            {words.map((word, wordIndex) => (\n                                <span\n                                    key={wordIndex}\n                                    className={twMerge(\n                                        \"transition duration-500 text-gray-300\",\n                                        wordIndex < currentWord && \"text-gray-900\"\n                                    )}\n                                >{`${word} `}</span>\n                            ))}\n                        </span>\n                        <span className=\"text-cyan-600 block\">\n                            btw don't bully Ankush, he is a good guy\n                        </span>\n                    </div>\n                </div>\n                <div ref={scrollTarget} className=\"h-[150vh]\"></div>\n            </div>\n        </section>\n    );\n}",
+      "path": "components/ardacity/word-scroll-reveal.tsx",
+      "target": "components/ardacity/word-scroll-reveal.tsx"
+    }
+  ]
+}
