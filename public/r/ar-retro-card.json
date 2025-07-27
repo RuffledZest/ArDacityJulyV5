@@ -1,0 +1,14 @@
+{
+    "name": "ar-retro-card",
+    "type": "registry:component",
+    "dependencies": [],
+    "registryDependencies": [],
+    "files": [
+      {
+        "type": "registry:component",
+        "content": "\"use client\"\n\nimport type React from \"react\"\n\ninterface RetroCardProps {\n  children: React.ReactNode\n  title?: string\n  subtitle?: string\n  primaryColor?: string\n  secondaryColor?: string\n  textColor?: string\n  className?: string\n  padding?: \"sm\" | \"md\" | \"lg\"\n}\n\nexport function RetroCard({\n  children,\n  title,\n  subtitle,\n  primaryColor = \"#2d2d2d\",\n  secondaryColor = \"#f5f5dc\",\n  textColor = \"#2d2d2d\",\n  className = \"\",\n  padding = \"md\",\n}: RetroCardProps) {\n  const paddingClasses = {\n    sm: \"p-4\",\n    md: \"p-6\",\n    lg: \"p-8\",\n  }\n\n  return (\n    <div\n      className={`rounded-lg border-2 ${paddingClasses[padding]} ${className}`}\n      style={{\n        backgroundColor: secondaryColor,\n        borderColor: primaryColor,\n        boxShadow: `6px 6px 0px ${primaryColor}`,\n        color: textColor,\n      }}\n    >\n      {title && (\n        <h3 className=\"font-mono font-bold text-xl mb-2\" style={{ color: textColor }}>\n          {title}\n        </h3>\n      )}\n      {subtitle && (\n        <p className=\"font-mono text-sm opacity-70 mb-4\" style={{ color: textColor }}>\n          {subtitle}\n        </p>\n      )}\n      <div className=\"font-mono\">{children}</div>\n    </div>\n  )\n}",
+        "path": "components/ardacity/ar-retro-card.tsx",
+        "target": "components/ardacity/ar-retro-card.tsx"
+      }
+    ]
+  }

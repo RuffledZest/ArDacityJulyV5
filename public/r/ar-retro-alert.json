@@ -1,0 +1,16 @@
+{
+    "name": "ar-retro-alert",
+    "type": "registry:component",
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [],
+    "files": [
+      {
+        "type": "registry:component",
+        "content": "\"use client\"\n\nimport { AlertCircle, CheckCircle, XCircle, Info, X } from \"lucide-react\"\n\ninterface RetroAlertProps {\n  type?: \"info\" | \"success\" | \"warning\" | \"error\"\n  title?: string\n  message: string\n  onClose?: () => void\n  primaryColor?: string\n  secondaryColor?: string\n  textColor?: string\n  className?: string\n  closable?: boolean\n}\n\nexport function RetroAlert({\n  type = \"info\",\n  title,\n  message,\n  onClose,\n  primaryColor = \"#2d2d2d\",\n  secondaryColor = \"#f5f5dc\",\n  textColor = \"#2d2d2d\",\n  className = \"\",\n  closable = true,\n}: RetroAlertProps) {\n  const typeConfig = {\n    info: { icon: Info, bgColor: \"#dbeafe\", borderColor: \"#3b82f6\" },\n    success: { icon: CheckCircle, bgColor: \"#dcfce7\", borderColor: \"#22c55e\" },\n    warning: { icon: AlertCircle, bgColor: \"#fef3c7\", borderColor: \"#f59e0b\" },\n    error: { icon: XCircle, bgColor: \"#fee2e2\", borderColor: \"#ef4444\" },\n  }\n\n  const config = typeConfig[type]\n  const Icon = config.icon\n\n  return (\n    <div\n      className={`relative p-4 rounded-lg border-2 ${className}`}\n      style={{\n        backgroundColor: config.bgColor,\n        borderColor: config.borderColor,\n        boxShadow: `4px 4px 0px ${config.borderColor}`,\n        color: textColor,\n      }}\n    >\n      <div className=\"flex items-start gap-3\">\n        <Icon className=\"w-5 h-5 mt-0.5 flex-shrink-0\" style={{ color: config.borderColor }} />\n        <div className=\"flex-1\">\n          {title && (\n            <h4 className=\"font-mono font-bold text-sm mb-1\" style={{ color: textColor }}>\n              {title}\n            </h4>\n          )}\n          <p className=\"font-mono text-sm\" style={{ color: textColor }}>\n            {message}\n          </p>\n        </div>\n        {closable && onClose && (\n          <button\n            onClick={onClose}\n            className=\"p-1 rounded transition-all duration-200 hover:scale-110\"\n            style={{\n              backgroundColor: config.borderColor,\n              color: config.bgColor,\n            }}\n          >\n            <X className=\"w-4 h-4\" />\n          </button>\n        )}\n      </div>\n    </div>\n  )\n}",
+        "path": "components/ardacity/ar-retro-alert.tsx",
+        "target": "components/ardacity/ar-retro-alert.tsx"
+      }
+    ]
+  }

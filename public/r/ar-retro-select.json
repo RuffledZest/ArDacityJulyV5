@@ -1,0 +1,16 @@
+{
+    "name": "ar-retro-select",
+    "type": "registry:component",
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [],
+    "files": [
+      {
+        "type": "registry:component",
+        "content": "\"use client\"\n\nimport { useState, useRef, useEffect } from \"react\"\nimport { ChevronDown } from \"lucide-react\"\n\ninterface RetroSelectProps {\n  value: string\n  onChange: (value: string) => void\n  options: { value: string; label: string }[]\n  placeholder?: string\n  primaryColor?: string\n  secondaryColor?: string\n  textColor?: string\n  className?: string\n}\n\nexport function RetroSelect({\n  value,\n  onChange,\n  options,\n  placeholder = \"Select option\",\n  primaryColor = \"#2d2d2d\",\n  secondaryColor = \"#f5f5dc\",\n  textColor = \"#2d2d2d\",\n  className = \"\",\n}: RetroSelectProps) {\n  const [isOpen, setIsOpen] = useState(false)\n  const selectRef = useRef<HTMLDivElement>(null)\n\n  useEffect(() => {\n    const handleClickOutside = (event: MouseEvent) => {\n      if (selectRef.current && !selectRef.current.contains(event.target as Node)) {\n        setIsOpen(false)\n      }\n    }\n    document.addEventListener(\"mousedown\", handleClickOutside)\n    return () => document.removeEventListener(\"mousedown\", handleClickOutside)\n  }, [])\n\n  const selectedOption = options.find(option => option.value === value)\n\n  return (\n    <div ref={selectRef} className={`relative ${className}`}>\n      <button\n        onClick={() => setIsOpen(!isOpen)}\n        className=\"w-full px-3 py-2 rounded-lg border-2 font-mono transition-all duration-200 hover:shadow-lg flex items-center justify-between\"\n        style={{\n          backgroundColor: secondaryColor,\n          borderColor: primaryColor,\n          color: textColor,\n          boxShadow: `2px 2px 0px ${primaryColor}`,\n        }}\n      >\n        <span>{selectedOption?.label || placeholder}</span>\n        <ChevronDown \n          className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}\n          style={{ color: textColor }}\n        />\n      </button>\n      \n      {isOpen && (\n        <div\n          className=\"absolute top-full left-0 right-0 mt-1 rounded-lg border-2 z-50 max-h-48 overflow-y-auto\"\n          style={{\n            backgroundColor: secondaryColor,\n            borderColor: primaryColor,\n            boxShadow: `4px 4px 0px ${primaryColor}`,\n          }}\n        >\n          {options.map((option) => (\n            <button\n              key={option.value}\n              onClick={() => {\n                onChange(option.value)\n                setIsOpen(false)\n              }}\n              className=\"w-full px-3 py-2 text-left font-mono hover:bg-opacity-80 transition-colors\"\n              style={{\n                color: textColor,\n                backgroundColor: value === option.value ? `${primaryColor}20` : 'transparent',\n              }}\n            >\n              {option.label}\n            </button>\n          ))}\n        </div>\n      )}\n    </div>\n  )\n}",
+        "path": "components/ardacity/ar-retro-select.tsx",
+        "target": "components/ardacity/ar-retro-select.tsx"
+      }
+    ]
+  }

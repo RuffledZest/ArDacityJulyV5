@@ -1,0 +1,16 @@
+{
+    "name": "ar-retro-popup",
+    "type": "registry:component",
+    "dependencies": [
+      "lucide-react"
+    ],
+    "registryDependencies": [],
+    "files": [
+      {
+        "type": "registry:component",
+        "content": "\"use client\"\n\nimport type React from \"react\"\nimport { useEffect } from \"react\"\nimport { X } from \"lucide-react\"\n\ninterface RetroPopupProps {\n  isOpen: boolean\n  onClose: () => void\n  title?: string\n  children: React.ReactNode\n  primaryColor?: string\n  secondaryColor?: string\n  textColor?: string\n  className?: string\n  size?: \"sm\" | \"md\" | \"lg\"\n  showCloseButton?: boolean\n}\n\nexport function RetroPopup({\n  isOpen,\n  onClose,\n  title,\n  children,\n  primaryColor = \"#2d2d2d\",\n  secondaryColor = \"#f5f5dc\",\n  textColor = \"#2d2d2d\",\n  className = \"\",\n  size = \"md\",\n  showCloseButton = true,\n}: RetroPopupProps) {\n  const sizeClasses = {\n    sm: \"max-w-md\",\n    md: \"max-w-lg\",\n    lg: \"max-w-2xl\",\n  }\n\n  useEffect(() => {\n    if (isOpen) {\n      document.body.style.overflow = \"hidden\"\n    } else {\n      document.body.style.overflow = \"unset\"\n    }\n    return () => {\n      document.body.style.overflow = \"unset\"\n    }\n  }, [isOpen])\n\n  if (!isOpen) return null\n\n  return (\n    <div className=\"fixed inset-0 z-50 flex items-center justify-center p-4\">\n      {/* Backdrop */}\n      <div className=\"absolute inset-0 bg-black/50 backdrop-blur-sm\" onClick={onClose} />\n      \n      {/* Modal */}\n      <div\n        className={`relative w-full ${sizeClasses[size]} rounded-lg border-4 ${className}`}\n        style={{\n          backgroundColor: secondaryColor,\n          borderColor: primaryColor,\n          boxShadow: `8px 8px 0px ${primaryColor}`,\n          color: textColor,\n        }}\n      >\n        {/* Header */}\n        {(title || showCloseButton) && (\n          <div className=\"flex items-center justify-between p-4 border-b-2\" style={{ borderBottomColor: primaryColor }}>\n            {title && (\n              <h2 className=\"font-mono font-bold text-xl\" style={{ color: textColor }}>\n                {title}\n              </h2>\n            )}\n            {showCloseButton && (\n              <button\n                onClick={onClose}\n                className=\"p-2 rounded-lg border-2 transition-all duration-200 hover:scale-110\"\n                style={{\n                  backgroundColor: primaryColor,\n                  color: secondaryColor,\n                  borderColor: primaryColor,\n                }}\n              >\n                <X className=\"w-4 h-4\" />\n              </button>\n            )}\n          </div>\n        )}\n        \n        {/* Content */}\n        <div className=\"p-6 font-mono\">{children}</div>\n      </div>\n    </div>\n  )\n}",
+        "path": "components/ardacity/ar-retro-popup.tsx",
+        "target": "components/ardacity/ar-retro-popup.tsx"
+      }
+    ]
+  }

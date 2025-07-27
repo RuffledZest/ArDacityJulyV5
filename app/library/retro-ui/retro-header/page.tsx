@@ -68,7 +68,7 @@ export default function RetroHeaderPage() {
       </div>
 
       {/* Header Video Preview */}
-      <div className="mb-8">
+      {/* <div className="mb-8">
         <RetroVideo
           title="ArDacity UI - Retro Header Component"
           primaryColor={colors.primary}
@@ -77,7 +77,7 @@ export default function RetroHeaderPage() {
           controls={true}
           autoPlay={false}
         />
-      </div>
+      </div> */}
 
       {/* Preview/Code Tabs */}
       <Card className="mb-8">

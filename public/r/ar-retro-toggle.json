@@ -1,0 +1,14 @@
+{
+    "name": "ar-retro-toggle",
+    "type": "registry:component",
+    "dependencies": [],
+    "registryDependencies": [],
+    "files": [
+      {
+        "type": "registry:component",
+        "content": "\"use client\"\n\ninterface RetroToggleProps {\n  options: string[]\n  activeOption: string\n  onChange: (option: string) => void\n  primaryColor?: string\n  secondaryColor?: string\n  textColor?: string\n  activeTextColor?: string\n  className?: string\n  size?: \"sm\" | \"md\" | \"lg\"\n}\n\nexport function RetroToggle({\n  options,\n  activeOption,\n  onChange,\n  primaryColor = \"#2d2d2d\",\n  secondaryColor = \"#f5f5dc\",\n  textColor = \"#666\",\n  activeTextColor = \"#f5f5dc\",\n  className = \"\",\n  size = \"md\",\n}: RetroToggleProps) {\n  const sizeClasses = {\n    sm: \"px-3 py-1 text-sm\",\n    md: \"px-4 py-2 text-base\",\n    lg: \"px-6 py-3 text-lg\",\n  }\n\n  return (\n    <div\n      className={`inline-flex border-2 rounded-lg overflow-hidden ${className}`}\n      style={{\n        borderColor: primaryColor,\n        boxShadow: `4px 4px 0px ${primaryColor}`,\n      }}\n    >\n      {options.map((option, index) => (\n        <button\n          key={option}\n          onClick={() => onChange(option)}\n          className={`font-mono font-bold transition-all duration-200 border-r-2 last:border-r-0 hover:scale-105 ${sizeClasses[size]}`}\n          style={{\n            backgroundColor: activeOption === option ? primaryColor : secondaryColor,\n            color: activeOption === option ? activeTextColor : textColor,\n            borderRightColor: primaryColor,\n          }}\n        >\n          {option}\n        </button>\n      ))}\n    </div>\n  )\n}",
+        "path": "components/ardacity/ar-retro-toggle.tsx",
+        "target": "components/ardacity/ar-retro-toggle.tsx"
+      }
+    ]
+  }
