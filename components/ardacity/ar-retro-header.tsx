@@ -37,7 +37,7 @@ interface RetroHeaderProps {
 }
 
 export function RetroHeader({
-  title = "GLIMPSE",
+  title = "Retro Header",
   subtitle = "SEARCH ALMOST",
   highlightedWord = "ANYTHING",
   navToggleOptions = ["WEB", "ARNS"],
@@ -182,11 +182,11 @@ export function RetroHeader({
           {/* Character Illustrations - Decorative */}
           <div className="absolute top-20 right-0 hidden xl:block">
             <div
-              className="w-32 h-32 rounded-lg border-2 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center rotate-12"
+              className="w-32 h-32 rounded-lg border-2 bg-gradient-to-br from-yellow-400 to-orange-600 flex items-center justify-center rotate-12"
               style={{ borderColor: primaryColor, boxShadow: `4px 4px 0px ${primaryColor}` }}
             >
               <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center">
-                <div className="w-8 h-8 bg-blue-500 rounded-full"></div>
+                <div className="w-8 h-8 bg-yellow-500 rounded-full"></div>
               </div>
             </div>
           </div>
@@ -216,7 +216,7 @@ export function RetroHeader({
             {/* Search Input */}
             <div className="mb-6">
               <div
-                className="flex items-center p-4 lg:p-6 rounded-lg border-2"
+                className="flex items-center p-2 md:p-4 lg:p-4 rounded-lg border-2"
                 style={{
                   backgroundColor: "#ffffff",
                   borderColor: primaryColor,
@@ -229,7 +229,7 @@ export function RetroHeader({
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder={searchPlaceholder}
-                  className="flex-1 bg-transparent outline-none font-mono text-lg"
+                  className="flex-1 bg-transparent outline-none font-mono text-sm md:text-lg"
                   style={{ color: textColor }}
                   onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                 />

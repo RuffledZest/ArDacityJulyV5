@@ -37,8 +37,8 @@ export default function RetroHeaderPage() {
 
   // Customization states
   const [title, setTitle] = useState("GLIMPSE")
-  const [subtitle, setSubtitle] = useState("SEARCH ALMOST")
-  const [highlightedWord, setHighlightedWord] = useState("ANYTHING")
+  const [subtitle, setSubtitle] = useState("FIND ALMOST")
+  const [highlightedWord, setHighlightedWord] = useState(`"WHATEVAH" `)
   const [colors, setColors] = useState({
     primary: "#2d2d2d",
     secondary: "#f5f5dc",
