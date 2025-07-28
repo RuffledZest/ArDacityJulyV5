@@ -70,7 +70,7 @@ export function Header2({ onMenuClick }: HeaderProps) {
               onClick={() => scrollToSection("features")}
               className="text-sm font-medium transition-colors hover:text-cyan-500"
             >
-              Features
+              Components
             </button>
             <button
               onClick={() => scrollToSection("demo")}

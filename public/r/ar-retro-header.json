@@ -5,7 +5,7 @@
       "lucide-react"
     ],
     "registryDependencies": [
-      "ar-retro-video"
+      "https://ar-dacity-july-v5.vercel.app/r/ar-retro-video.json"
     ],
     "files": [
       {
