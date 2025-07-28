@@ -5,9 +5,11 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Copy, Eye, Code } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { RetroPopup } from "@/components/ardacity/ar-retro-popup"
 import { RetroButton } from "@/components/ardacity/ar-retro-button"
+import { useTheme } from "next-themes"
+import { RetroColorPresets } from "@/components/ardacity/ar-retro-color-presets"
 
 const installCommands = {
   bun: "bunx shadcn@latest add https://ardacityui.ar.io/r/ar-retro-popup.json",
@@ -15,7 +17,35 @@ const installCommands = {
   pnpm: "pnpm dlx shadcn@latest add https://ardacityui.ar.io/r/ar-retro-popup.json",
 }
 
-const codeExample = `import { RetroPopup } from "@/components/ardacity/ar-retro-popup";
+export default function RetroPopupPage() {
+  const [activeTab, setActiveTab] = useState("preview")
+  const [copiedCommand, setCopiedCommand] = useState<string | null>(null)
+  const [isOpen, setIsOpen] = useState(false)
+  const [colors, setColors] = useState({
+    primary: "#2d2d2d",
+    secondary: "#f5f5dc",
+    text: "#2d2d2d",
+  })
+  const [title, setTitle] = useState("Retro Popup")
+  const [size, setSize] = useState("md")
+  const [showCloseButton, setShowCloseButton] = useState(true)
+  const { resolvedTheme } = useTheme()
+
+  useEffect(() => {
+    if (resolvedTheme === "dark") {
+      setColors({ primary: "#00ff88", secondary: "#000000", text: "#00ff88" })
+    } else {
+      setColors({ primary: "#2d2d2d", secondary: "#f5f5dc", text: "#2d2d2d" })
+    }
+  }, [resolvedTheme])
+
+  const copyToClipboard = (text: string, command: string) => {
+    navigator.clipboard.writeText(text)
+    setCopiedCommand(command)
+    setTimeout(() => setCopiedCommand(null), 2000)
+  }
+
+  const codeExample = `import { RetroPopup } from "@/components/ardacity/ar-retro-popup";
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,30 +56,18 @@ export default function Page() {
       <RetroPopup
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
-        title="Retro Popup"
+        title="${title}"
+        primaryColor="${colors.primary}"
+        secondaryColor="${colors.secondary}"
+        textColor="${colors.text}"
+        size="${size}"
+        showCloseButton={${showCloseButton}}
       >
         <p>This is the content of the retro popup.</p>
       </RetroPopup>
     </>
   );
 }`
-
-export default function RetroPopupPage() {
-  const [activeTab, setActiveTab] = useState("preview")
-  const [copiedCommand, setCopiedCommand] = useState<string | null>(null)
-  const [isOpen, setIsOpen] = useState(false)
-  const [primaryColor, setPrimaryColor] = useState("#2d2d2d")
-  const [secondaryColor, setSecondaryColor] = useState("#f5f5dc")
-  const [textColor, setTextColor] = useState("#2d2d2d")
-  const [title, setTitle] = useState("Retro Popup")
-  const [size, setSize] = useState<"sm" | "md" | "lg">("md")
-  const [showCloseButton, setShowCloseButton] = useState(true)
-
-  const copyToClipboard = (text: string, command: string) => {
-    navigator.clipboard.writeText(text)
-    setCopiedCommand(command)
-    setTimeout(() => setCopiedCommand(null), 2000)
-  }
 
   return (
     <div className="container mx-auto px-6 py-8 max-w-6xl">
@@ -96,8 +114,8 @@ export default function RetroPopupPage() {
                     <label className="text-sm font-medium">Primary Color:</label>
                     <input
                       type="color"
-                      value={primaryColor}
-                      onChange={(e) => setPrimaryColor(e.target.value)}
+                      value={colors.primary}
+                      onChange={(e) => setColors({ ...colors, primary: e.target.value })}
                       className="w-8 h-8 rounded border"
                     />
                   </div>
@@ -105,8 +123,8 @@ export default function RetroPopupPage() {
                     <label className="text-sm font-medium">Secondary Color:</label>
                     <input
                       type="color"
-                      value={secondaryColor}
-                      onChange={(e) => setSecondaryColor(e.target.value)}
+                      value={colors.secondary}
+                      onChange={(e) => setColors({ ...colors, secondary: e.target.value })}
                       className="w-8 h-8 rounded border"
                     />
                   </div>
@@ -114,8 +132,8 @@ export default function RetroPopupPage() {
                     <label className="text-sm font-medium">Text Color:</label>
                     <input
                       type="color"
-                      value={textColor}
-                      onChange={(e) => setTextColor(e.target.value)}
+                      value={colors.text}
+                      onChange={(e) => setColors({ ...colors, text: e.target.value })}
                       className="w-8 h-8 rounded border"
                     />
                   </div>
@@ -157,13 +175,19 @@ export default function RetroPopupPage() {
                 {/* Preview */}
                 <div className="flex items-center justify-center p-8 bg-gradient-to-br from-amber-50 to-orange-100 dark:from-gray-900 dark:to-gray-800 rounded-lg">
                   <RetroButton
-                    primaryColor={primaryColor}
-                    secondaryColor={secondaryColor}
+                    primaryColor={colors.primary}
+                    secondaryColor={colors.secondary}
                     onClick={() => setIsOpen(true)}
                   >
                     Open Popup
                   </RetroButton>
                 </div>
+                <RetroColorPresets
+                  colors={colors}
+                  onColorsChange={setColors}
+                  onPresetChange={(preset) => setColors(preset)}
+                  isDarkMode={resolvedTheme === "dark"}
+                />
               </div>
             </TabsContent>
             <TabsContent value="code" className="mt-0">
@@ -239,9 +263,9 @@ export default function RetroPopupPage() {
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         title={title}
-        primaryColor={primaryColor}
-        secondaryColor={secondaryColor}
-        textColor={textColor}
+        primaryColor={colors.primary}
+        secondaryColor={colors.secondary}
+        textColor={colors.text}
         size={size}
         showCloseButton={showCloseButton}
       >
@@ -249,15 +273,15 @@ export default function RetroPopupPage() {
           <p>This is the content of the retro popup. You can put any content here including text, images, or other components.</p>
           <div className="flex gap-2">
             <RetroButton
-              primaryColor={primaryColor}
-              secondaryColor={secondaryColor}
+              primaryColor={colors.primary}
+              secondaryColor={colors.secondary}
               onClick={() => setIsOpen(false)}
             >
               Close
             </RetroButton>
             <RetroButton
-              primaryColor={secondaryColor}
-              secondaryColor={primaryColor}
+              primaryColor={colors.secondary}
+              secondaryColor={colors.primary}
               variant="secondary"
             >
               Action

@@ -5,32 +5,17 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Copy, Eye, Code } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { RetroCard } from "@/components/ardacity/ar-retro-card"
 import { RetroColorPresets } from "@/components/ardacity/ar-retro-color-presets"
 import { RetroSelect } from "@/components/ardacity/ar-retro-select"
+import { useTheme } from "next-themes"
 
 const installCommands = {
   bun: "bunx shadcn@latest add https://ardacityui.ar.io/r/ar-retro-card.json",
   npm: "npx shadcn@latest add https://ardacityui.ar.io/r/ar-retro-card.json",
   pnpm: "pnpm dlx shadcn@latest add https://ardacityui.ar.io/r/ar-retro-card.json",
 }
-
-const codeExample = `import { RetroCard } from "@/components/ardacity/ar-retro-card";
-
-export default function Page() {
-  return (
-    <RetroCard
-      title="Retro Card"
-      subtitle="A classic card component"
-      primaryColor="#2d2d2d"
-      secondaryColor="#f5f5dc"
-      textColor="#2d2d2d"
-    >
-      <p>This is the card content with retro styling.</p>
-    </RetroCard>
-  );
-}`
 
 export default function RetroCardPage() {
   const [activeTab, setActiveTab] = useState("preview")
@@ -43,6 +28,15 @@ export default function RetroCardPage() {
   const [title, setTitle] = useState("Retro Card")
   const [subtitle, setSubtitle] = useState("A classic card component")
   const [padding, setPadding] = useState("md")
+  const { resolvedTheme } = useTheme()
+
+  useEffect(() => {
+    if (resolvedTheme === "dark") {
+      setColors({ primary: "#00ff88", secondary: "#000000", text: "#00ff88" })
+    } else {
+      setColors({ primary: "#2d2d2d", secondary: "#f5f5dc", text: "#2d2d2d" })
+    }
+  }, [resolvedTheme])
 
   const copyToClipboard = (text: string, command: string) => {
     navigator.clipboard.writeText(text)
@@ -55,6 +49,23 @@ export default function RetroCardPage() {
     { value: "md", label: "Medium" },
     { value: "lg", label: "Large" },
   ]
+
+  const codeExample = `import { RetroCard } from "@/components/ardacity/ar-retro-card";
+
+export default function Page() {
+  return (
+    <RetroCard
+      title="${title}"
+      subtitle="${subtitle}"
+      primaryColor="${colors.primary}"
+      secondaryColor="${colors.secondary}"
+      textColor="${colors.text}"
+      padding="${padding}"
+    >
+      <p>This is the card content with retro styling.</p>
+    </RetroCard>
+  );
+}`
 
   return (
     <div className="container mx-auto px-6 py-8 max-w-6xl">
@@ -116,6 +127,8 @@ export default function RetroCardPage() {
                   <RetroColorPresets
                     colors={colors}
                     onColorsChange={setColors}
+                    onPresetChange={(preset) => setColors(preset)}
+                    isDarkMode={resolvedTheme === "dark"}
                   />
                 </div>
 

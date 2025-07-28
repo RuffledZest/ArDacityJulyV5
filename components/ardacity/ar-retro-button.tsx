@@ -33,9 +33,13 @@ export function RetroButton({
     lg: "px-8 py-4 text-lg",
   }
 
+  // SWAP: Now 'primary' uses secondaryColor as bg, primaryColor as text, and vice versa
   const isPrimary = variant === "primary"
-  const bgColor = isPrimary ? primaryColor : secondaryColor
-  const color = textColor || (isPrimary ? secondaryColor : primaryColor)
+  const bgColor = isPrimary ? secondaryColor : primaryColor
+  const color = textColor || (isPrimary ? primaryColor : secondaryColor)
+
+  // Adjust shadow color for better contrast
+  const shadowOffset = isPrimary ? "4px 4px" : "6px 6px"
 
   return (
     <button
@@ -51,7 +55,7 @@ export function RetroButton({
         backgroundColor: bgColor,
         color: color,
         borderColor: primaryColor,
-        boxShadow: disabled ? "none" : `4px 4px 0px ${primaryColor}`,
+        boxShadow: disabled ? "none" : `${shadowOffset} 0px ${primaryColor}`,
         transform: disabled ? "none" : undefined,
       }}
     >

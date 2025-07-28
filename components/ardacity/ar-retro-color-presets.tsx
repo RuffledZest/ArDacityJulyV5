@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Palette } from "lucide-react"
 
 export interface ColorPreset {
@@ -29,14 +29,27 @@ interface RetroColorPresetsProps {
   }
   onColorsChange: (colors: { primary: string; secondary: string; text: string }) => void
   className?: string
+  onPresetChange?: (preset: ColorPreset) => void
+  isDarkMode?: boolean
 }
 
-export function RetroColorPresets({ colors, onColorsChange, className = "" }: RetroColorPresetsProps) {
-  const [isDarkMode, setIsDarkMode] = useState(false)
+export function RetroColorPresets({ colors, onColorsChange, className = "", onPresetChange, isDarkMode: isDarkModeProp }: RetroColorPresetsProps) {
+  const [isDarkMode, setIsDarkMode] = useState(isDarkModeProp ?? false)
+
+  // Auto-detect dark mode if not provided
+  useEffect(() => {
+    if (isDarkModeProp === undefined) {
+      const checkDark = () => {
+        setIsDarkMode(document.documentElement.classList.contains("dark"))
+      }
+      checkDark()
+      window.addEventListener("resize", checkDark)
+      return () => window.removeEventListener("resize", checkDark)
+    }
+  }, [isDarkModeProp])
 
   const handlePresetClick = (preset: ColorPreset) => {
     if (isDarkMode) {
-      // Invert colors for dark mode
       onColorsChange({
         primary: preset.secondary,
         secondary: preset.primary,
@@ -45,11 +58,11 @@ export function RetroColorPresets({ colors, onColorsChange, className = "" }: Re
     } else {
       onColorsChange(preset)
     }
+    onPresetChange?.(preset)
   }
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode)
-    // Invert current colors
     onColorsChange({
       primary: colors.secondary,
       secondary: colors.primary,

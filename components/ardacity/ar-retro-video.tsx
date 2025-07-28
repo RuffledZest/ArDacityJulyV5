@@ -16,7 +16,7 @@ interface RetroVideoProps {
 }
 
 export function RetroVideo({
-  src = "https://video.twimg.com/ext_tw_video/1946253365794468190/pu/vid/1280x720/8qXqXqXqXqXqXqXq.mp4",
+  src = "https://aven-ping-landing-page.vercel.app/GreatestOfAllTime.mp4",
   poster = "https://zh5mns2xs4orzalnne62iz47xz7ag54ujodwlfmdbrzk5xymqkeq.arweave.net/yfrGy1eXHRyBbWk9pGefvn4Dd5RLh2WVgwxyrt8Mgok",
   title = "Retro Video Player",
   primaryColor = "#2d2d2d",

@@ -38,7 +38,7 @@ export default function RetroVideoPage() {
     secondary: "#f5f5dc",
     text: "#2d2d2d",
   })
-  const [title, setTitle] = useState("Retro Video Player")
+  const [title, setTitle] = useState("Greatest Of All Time")
   const [controls, setControls] = useState(true)
   const [autoPlay, setAutoPlay] = useState(false)
 
@@ -72,16 +72,7 @@ export default function RetroVideoPage() {
       </div>
 
       {/* Header Video Preview */}
-      <div className="mb-8">
-        <RetroVideo
-          title="ArDacity UI - Retro Components"
-          primaryColor={colors.primary}
-          secondaryColor={colors.secondary}
-          textColor={colors.text}
-          controls={controls}
-          autoPlay={autoPlay}
-        />
-      </div>
+      
 
       {/* Preview/Code Tabs */}
       <Card className="mb-8">
@@ -132,8 +123,8 @@ export default function RetroVideoPage() {
                 </div>
 
                 {/* Component Options */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="space-y-2">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-green-500">
+                  <div className="flex flex-col gap-2">
                     <label className="text-sm font-medium">Title:</label>
                     <input
                       type="text"
@@ -148,7 +139,7 @@ export default function RetroVideoPage() {
                       }}
                     />
                   </div>
-                  <div className="space-y-2">
+                  <div className="flex flex-col gap-2">
                     <label className="text-sm font-medium">Controls:</label>
                     <RetroSelect
                       value={controls.toString()}
@@ -159,7 +150,7 @@ export default function RetroVideoPage() {
                       textColor={colors.text}
                     />
                   </div>
-                  <div className="space-y-2">
+                  <div className="flex flex-col gap-2">
                     <label className="text-sm font-medium">Auto Play:</label>
                     <RetroSelect
                       value={autoPlay.toString()}

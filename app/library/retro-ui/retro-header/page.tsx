@@ -150,14 +150,14 @@ export default function RetroHeaderPage() {
                 </div>
 
                 {/* Component Options */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                  <div className="space-y-2">
+                <div className="flex flex-col gap-4 max-w-md mx-auto">
+                  <div className="space-y-1">
                     <label className="text-sm font-medium">Title:</label>
                     <input
                       type="text"
                       value={title}
                       onChange={(e) => setTitle(e.target.value)}
-                      className="px-3 py-2 rounded-lg border-2 font-mono transition-all duration-200 focus:outline-none focus:shadow-lg"
+                      className="px-3 py-2 rounded-lg border-2 font-mono transition-all duration-200 focus:outline-none focus:shadow-lg w-full"
                       style={{
                         backgroundColor: colors.secondary,
                         borderColor: colors.primary,
@@ -166,13 +166,13 @@ export default function RetroHeaderPage() {
                       }}
                     />
                   </div>
-                  <div className="space-y-2">
+                  <div className="space-y-1">
                     <label className="text-sm font-medium">Subtitle:</label>
                     <input
                       type="text"
                       value={subtitle}
                       onChange={(e) => setSubtitle(e.target.value)}
-                      className="px-3 py-2 rounded-lg border-2 font-mono transition-all duration-200 focus:outline-none focus:shadow-lg"
+                      className="px-3 py-2 rounded-lg border-2 font-mono transition-all duration-200 focus:outline-none focus:shadow-lg w-full"
                       style={{
                         backgroundColor: colors.secondary,
                         borderColor: colors.primary,
@@ -181,13 +181,13 @@ export default function RetroHeaderPage() {
                       }}
                     />
                   </div>
-                  <div className="space-y-2">
+                  <div className="space-y-1">
                     <label className="text-sm font-medium">Highlighted Word:</label>
                     <input
                       type="text"
                       value={highlightedWord}
                       onChange={(e) => setHighlightedWord(e.target.value)}
-                      className="px-3 py-2 rounded-lg border-2 font-mono transition-all duration-200 focus:outline-none focus:shadow-lg"
+                      className="px-3 py-2 rounded-lg border-2 font-mono transition-all duration-200 focus:outline-none focus:shadow-lg w-full"
                       style={{
                         backgroundColor: colors.secondary,
                         borderColor: colors.primary,
@@ -196,7 +196,7 @@ export default function RetroHeaderPage() {
                       }}
                     />
                   </div>
-                  <div className="space-y-2">
+                  <div className="space-y-1">
                     <label className="text-sm font-medium">Background:</label>
                     <input
                       type="color"

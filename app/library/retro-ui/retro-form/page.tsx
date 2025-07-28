@@ -5,8 +5,10 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Copy, Eye, Code } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { RetroForm } from "@/components/ardacity/ar-retro-form"
+import { useTheme } from "next-themes"
+import { RetroColorPresets } from "@/components/ardacity/ar-retro-color-presets"
 
 const installCommands = {
   bun: "bunx shadcn@latest add https://ardacityui.ar.io/r/ar-retro-form.json",
@@ -14,32 +16,43 @@ const installCommands = {
   pnpm: "pnpm dlx shadcn@latest add https://ardacityui.ar.io/r/ar-retro-form.json",
 }
 
-const codeExample = `import { RetroForm } from "@/components/ardacity/ar-retro-form";
-
-export default function Page() {
-  return (
-    <RetroForm
-      title="Contact Form"
-      primaryColor="#2d2d2d"
-      secondaryColor="#f5f5dc"
-      textColor="#2d2d2d"
-    />
-  );
-}`
-
 export default function RetroFormPage() {
   const [activeTab, setActiveTab] = useState("preview")
   const [copiedCommand, setCopiedCommand] = useState<string | null>(null)
-  const [primaryColor, setPrimaryColor] = useState("#2d2d2d")
-  const [secondaryColor, setSecondaryColor] = useState("#f5f5dc")
-  const [textColor, setTextColor] = useState("#2d2d2d")
+  const [colors, setColors] = useState({
+    primary: "#2d2d2d",
+    secondary: "#f5f5dc",
+    text: "#2d2d2d",
+  })
   const [title, setTitle] = useState("Contact Form")
+  const { resolvedTheme } = useTheme()
+
+  useEffect(() => {
+    if (resolvedTheme === "dark") {
+      setColors({ primary: "#00ff88", secondary: "#000000", text: "#00ff88" })
+    } else {
+      setColors({ primary: "#2d2d2d", secondary: "#f5f5dc", text: "#2d2d2d" })
+    }
+  }, [resolvedTheme])
 
   const copyToClipboard = (text: string, command: string) => {
     navigator.clipboard.writeText(text)
     setCopiedCommand(command)
     setTimeout(() => setCopiedCommand(null), 2000)
   }
+
+  const codeExample = `import { RetroForm } from "@/components/ardacity/ar-retro-form";
+
+export default function Page() {
+  return (
+    <RetroForm
+      title="${title}"
+      primaryColor="${colors.primary}"
+      secondaryColor="${colors.secondary}"
+      textColor="${colors.text}"
+    />
+  );
+}`
 
   return (
     <div className="container mx-auto px-6 py-8 max-w-6xl">
@@ -86,8 +99,8 @@ export default function RetroFormPage() {
                     <label className="text-sm font-medium">Primary Color:</label>
                     <input
                       type="color"
-                      value={primaryColor}
-                      onChange={(e) => setPrimaryColor(e.target.value)}
+                      value={colors.primary}
+                      onChange={(e) => setColors({ ...colors, primary: e.target.value })}
                       className="w-8 h-8 rounded border"
                     />
                   </div>
@@ -95,8 +108,8 @@ export default function RetroFormPage() {
                     <label className="text-sm font-medium">Secondary Color:</label>
                     <input
                       type="color"
-                      value={secondaryColor}
-                      onChange={(e) => setSecondaryColor(e.target.value)}
+                      value={colors.secondary}
+                      onChange={(e) => setColors({ ...colors, secondary: e.target.value })}
                       className="w-8 h-8 rounded border"
                     />
                   </div>
@@ -104,8 +117,8 @@ export default function RetroFormPage() {
                     <label className="text-sm font-medium">Text Color:</label>
                     <input
                       type="color"
-                      value={textColor}
-                      onChange={(e) => setTextColor(e.target.value)}
+                      value={colors.text}
+                      onChange={(e) => setColors({ ...colors, text: e.target.value })}
                       className="w-8 h-8 rounded border"
                     />
                   </div>
@@ -128,12 +141,18 @@ export default function RetroFormPage() {
                   <div className="w-full max-w-md">
                     <RetroForm
                       title={title}
-                      primaryColor={primaryColor}
-                      secondaryColor={secondaryColor}
-                      textColor={textColor}
+                      primaryColor={colors.primary}
+                      secondaryColor={colors.secondary}
+                      textColor={colors.text}
                     />
                   </div>
                 </div>
+                <RetroColorPresets
+                  colors={colors}
+                  onColorsChange={setColors}
+                  onPresetChange={(preset) => setColors(preset)}
+                  isDarkMode={resolvedTheme === "dark"}
+                />
               </div>
             </TabsContent>
             <TabsContent value="code" className="mt-0">

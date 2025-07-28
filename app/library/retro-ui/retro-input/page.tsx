@@ -5,29 +5,17 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Copy, Eye, Code, Search, Mail, User } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { RetroInput } from "@/components/ardacity/ar-retro-input"
 import { RetroColorPresets } from "@/components/ardacity/ar-retro-color-presets"
 import { RetroSelect } from "@/components/ardacity/ar-retro-select"
+import { useTheme } from "next-themes"
 
 const installCommands = {
   bun: "bunx shadcn@latest add https://ardacityui.ar.io/r/ar-retro-input.json",
   npm: "npx shadcn@latest add https://ardacityui.ar.io/r/ar-retro-input.json",
   pnpm: "pnpm dlx shadcn@latest add https://ardacityui.ar.io/r/ar-retro-input.json",
 }
-
-const codeExample = `import { RetroInput } from "@/components/ardacity/ar-retro-input";
-
-export default function Page() {
-  return (
-    <RetroInput
-      placeholder="Search anything ///"
-      primaryColor="#2d2d2d"
-      secondaryColor="#f5f5dc"
-      textColor="#2d2d2d"
-    />
-  );
-}`
 
 export default function RetroInputPage() {
   const [activeTab, setActiveTab] = useState("preview")
@@ -40,6 +28,32 @@ export default function RetroInputPage() {
   })
   const [size, setSize] = useState("md")
   const [icon, setIcon] = useState("search")
+  const { resolvedTheme } = useTheme()
+
+  // Set Neon as default in dark mode
+  useEffect(() => {
+    if (resolvedTheme === "dark") {
+      setColors({ primary: "#00ff88", secondary: "#000000", text: "#00ff88" })
+    } else {
+      setColors({ primary: "#2d2d2d", secondary: "#f5f5dc", text: "#2d2d2d" })
+    }
+  }, [resolvedTheme])
+
+  // Generate code preview based on current state
+  const codeExample = `import { RetroInput } from "@/components/ardacity/ar-retro-input";
+
+export default function Page() {
+  return (
+    <RetroInput
+      placeholder="Search anything ///"
+      primaryColor="${colors.primary}"
+      secondaryColor="${colors.secondary}"
+      textColor="${colors.text}"
+      size="${size}"
+      icon={<${icon.charAt(0).toUpperCase() + icon.slice(1)} />}
+    />
+  );
+}`
 
   const copyToClipboard = (text: string, command: string) => {
     navigator.clipboard.writeText(text)
@@ -123,6 +137,8 @@ export default function RetroInputPage() {
                   <RetroColorPresets
                     colors={colors}
                     onColorsChange={setColors}
+                    onPresetChange={(preset) => setColors(preset)}
+                    isDarkMode={resolvedTheme === "dark"}
                   />
                 </div>
 
