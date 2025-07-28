@@ -33,7 +33,7 @@ export default function RetroNavbarPage() {
   const [primaryColor, setPrimaryColor] = useState("#2d2d2d")
   const [secondaryColor, setSecondaryColor] = useState("#f5f5dc")
   const [textColor, setTextColor] = useState("#2d2d2d")
-  const [title, setTitle] = useState("RETRO SITE")
+  const [title, setTitle] = useState("ArDacity Retro")
 
   const copyToClipboard = (text: string, command: string) => {
     navigator.clipboard.writeText(text)
@@ -131,7 +131,7 @@ export default function RetroNavbarPage() {
                 </div>
 
                 {/* Preview */}
-                <div className="p-8 bg-gradient-to-br from-amber-50 to-orange-100 dark:from-gray-900 dark:to-gray-800 rounded-lg">
+                <div className="p-8 bg-gradient-to-br from-amber-50 to-orange-100 dark:from-gray-900 dark:to-black rounded-lg">
                   <RetroNavbar
                     title={title}
                     items={defaultItems}
@@ -139,8 +139,8 @@ export default function RetroNavbarPage() {
                     secondaryColor={secondaryColor}
                     textColor={textColor}
                   />
-                  <div className="mt-8 p-4 bg-white/50 rounded-lg">
-                    <p className="text-center text-gray-600">Page content goes here...</p>
+                  <div className="mt-8 p-4 bg-white/20 backdrop-blur-lg rounded-lg">
+                    <p className="text-center text-black">Page content goes here...</p>
                   </div>
                 </div>
               </div>

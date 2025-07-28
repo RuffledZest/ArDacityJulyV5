@@ -101,7 +101,7 @@ export default function RetroVideoPage() {
             <TabsContent value="preview" className="mt-0">
               <div className="space-y-6">
                 {/* Preview */}
-                <div className="flex items-center justify-center p-8 bg-gradient-to-br from-amber-50 to-orange-100 dark:from-gray-900 dark:to-gray-800 rounded-lg">
+                <div className="flex items-center justify-center p-8 bg-gradient-to-br from-amber-50 to-orange-100 dark:from-gray-900 dark:to-black rounded-lg">
                   <div className="w-full max-w-2xl">
                     <RetroVideo
                       title={title}
@@ -123,7 +123,7 @@ export default function RetroVideoPage() {
                 </div>
 
                 {/* Component Options */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-green-500">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 ">
                   <div className="flex flex-col gap-2">
                     <label className="text-sm font-medium">Title:</label>
                     <input

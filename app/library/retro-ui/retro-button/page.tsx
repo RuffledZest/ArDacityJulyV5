@@ -126,7 +126,7 @@ export default function Page() {
             <TabsContent value="preview" className="mt-0">
               <div className="space-y-6">
                 {/* Preview */}
-                <div className="flex items-center justify-center p-8 bg-gradient-to-br from-amber-50 to-orange-100 dark:from-gray-900 dark:to-gray-800 rounded-lg">
+                <div className="flex items-center justify-center p-8 bg-gradient-to-br from-amber-50 to-orange-100 dark:from-gray-900 dark:to-black rounded-lg">
                   <RetroButton
                     primaryColor={colors.primary}
                     secondaryColor={colors.secondary}

@@ -66,18 +66,12 @@ export function Header2({ onMenuClick }: HeaderProps) {
             <Link href="/library/docs/" className="text-sm font-medium transition-colors hover:text-cyan-500">
               Docs
             </Link>
-            <button
-              onClick={() => scrollToSection("features")}
-              className="text-sm font-medium transition-colors hover:text-cyan-500"
-            >
+            <Link href="/library/" className="text-sm font-medium transition-colors hover:text-cyan-500">
               Components
-            </button>
-            <button
-              onClick={() => scrollToSection("demo")}
-              className="text-sm font-medium transition-colors hover:text-cyan-500"
-            >
-              Demo
-            </button>
+            </Link>
+            <Link href="/#projects" className="text-sm font-medium transition-colors hover:text-cyan-500">
+              Projects
+            </Link>
           </nav>
          
 

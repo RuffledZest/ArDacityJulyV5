@@ -25,7 +25,7 @@ export default function RetroCardPage() {
     secondary: "#f5f5dc",
     text: "#2d2d2d",
   })
-  const [title, setTitle] = useState("Retro Card")
+  const [title, setTitle] = useState("Dear Aarti")
   const [subtitle, setSubtitle] = useState("A classic card component")
   const [padding, setPadding] = useState("md")
   const { resolvedTheme } = useTheme()
@@ -107,7 +107,7 @@ export default function Page() {
             <TabsContent value="preview" className="mt-0">
               <div className="space-y-6">
                 {/* Preview */}
-                <div className="flex items-center justify-center p-8 bg-gradient-to-br from-amber-50 to-orange-100 dark:from-gray-900 dark:to-gray-800 rounded-lg">
+                <div className="flex items-center justify-center p-8 bg-gradient-to-br from-amber-50 to-orange-100 dark:from-gray-900 dark:to-black rounded-lg">
                   <div className="w-full max-w-md">
                     <RetroCard
                       title={title}
@@ -117,7 +117,7 @@ export default function Page() {
                       textColor={colors.text}
                       padding={padding as "sm" | "md" | "lg"}
                     >
-                      <p>This is the card content with retro styling. You can customize the title, subtitle, colors, and padding to match your design needs.</p>
+                      <p>This might be a retro card component, but you're a bih fosho. You can customize the title, subtitle, colors, and padding to match your design needs.</p>
                     </RetroCard>
                   </div>
                 </div>
@@ -134,7 +134,7 @@ export default function Page() {
 
                 {/* Component Options */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="space-y-2">
+                  <div className="flex flex-col gap-2">
                     <label className="text-sm font-medium">Title:</label>
                     <input
                       type="text"
@@ -149,7 +149,7 @@ export default function Page() {
                       }}
                     />
                   </div>
-                  <div className="space-y-2">
+                  <div className="flex flex-col gap-2">
                     <label className="text-sm font-medium">Subtitle:</label>
                     <input
                       type="text"
@@ -164,7 +164,7 @@ export default function Page() {
                       }}
                     />
                   </div>
-                  <div className="space-y-2">
+                  <div className="flex flex-col gap-2">
                     <label className="text-sm font-medium">Padding:</label>
                     <RetroSelect
                       value={padding}

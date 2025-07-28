@@ -77,7 +77,7 @@ const navigation = [
     items: [
       { name: "AI Card Generation", href: "/library/blocks/ai-card-generation", icon: Code },
       { name: "AI Chat", href: "/library/blocks/ai-chat", icon: Code },
-      { name: "Dashboard", href: "/library/blocks/dashboard", icon: Blocks },
+      
     ],
   },
   

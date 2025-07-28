@@ -84,7 +84,7 @@ const projects = [
   },
   {
     name: "AvenPing",
-    url: "https://aven-ping-landing-page.vercel.app/",
+    url: "https://avenping.com",
     description:
       "Real-time monitoring and alerting system for Arweave network infrastructure. Keep track of your applications and get instant notifications when issues arise.",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-CuuyaQp7d0D7Lucl7PPT4enzSBa5eE.png",
@@ -518,7 +518,7 @@ export default function LandingPage() {
       </section>
 
       {/* Projects Section - Responsive with better spacing */}
-      <div className="py-8" data-lenis-prevent>
+      <div className="py-8" id="projects" data-lenis-prevent>
         <MobileHorizontalProjects />
       </div>
 

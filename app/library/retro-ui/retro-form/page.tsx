@@ -137,7 +137,7 @@ export default function Page() {
                 </div>
 
                 {/* Preview */}
-                <div className="flex items-center justify-center p-8 bg-gradient-to-br from-amber-50 to-orange-100 dark:from-gray-900 dark:to-gray-800 rounded-lg">
+                <div className="flex items-center justify-center p-8 bg-gradient-to-br from-amber-50 to-orange-100 dark:from-gray-900 dark:to-black rounded-lg">
                   <div className="w-full max-w-md">
                     <RetroForm
                       title={title}
